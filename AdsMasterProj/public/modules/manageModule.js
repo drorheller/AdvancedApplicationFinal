@@ -38,7 +38,7 @@ manageModule.controller('manageIndexCntrl',function ($scope,$filter,ngTableParam
         filterDelay : 0
     });
 
-    serverApi.emit_GetAllAdsData();
+    serverApi.emit_GetAllAdsFromServer();
 
     $scope.callDelete = function(id){
         serverApi.emit_AdDelete(id);

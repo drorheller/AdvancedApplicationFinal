@@ -57,15 +57,15 @@ socketModule.factory('serverApi', function ($rootScope, socket) {
         //*********************
         // Defined server API
         //*********************
-        emit_GetActiveAdsData : function(){
+        emit_GetActiveAdsFromServer : function(){
             socket.emit('GetAds',{getAll : false});
         },
 
-        emit_GetAllAdsData : function(){
+        emit_GetAllAdsFromServer : function(){
             socket.emit('GetAds',{getAll : true});
         },
 
-        emit_GetActiveAdsByStation : function(stationId){
+        emit_GetActiveAdsByStationFromServer : function(stationId){
             socket.emit('GetAdsByStation',{'stationId' : stationId});
         },
 
@@ -98,14 +98,14 @@ socketModule.factory('serverApi', function ($rootScope, socket) {
         //****************************
         // Defined events from server (To keep track of constants)
         //****************************
-        serverEvent_ActiveAdsDataResponse 	: "ActiveAdsResponse",
-        serverEvent_ActiveAdsByStationRes   : "ActiveAdsByStationResponse",
-        serverEvent_AllAdsDataResponse 		: "AllAdsResponse",
-        serverEvent_AddCreatedEvent 		: "AdCreated",
-        serverEvent_AddUpdatedEvent 		: "AdUpdated",
-        serverEvent_AddDeletedEvent 		: "AdDeleted",
+        serverCallBack_ActiveAdsServerResponse 	: "ActiveAdsResponse",
+        serverCallBack_ActiveAdsByStationServerResponse : "ActiveAdsByStationResponse",
+        serverCallBack_AllAdsServerResponse : "AllAdsResponse",
+        serverCallBack_AddCreatedOnServer 		: "AdCreated",
+        serverCallBack_AddUpdatedOnServer 		: "AdUpdated",
+        serverCallBack_AddDeletedOnServer 		: "AdDeleted",
         serverEvent_ItunesResponse 			: "ItunesResponse",
-        serverEvent_AllDisplaysResponse 	: "DisplaysData",
+        serverCallBack_AllDisplaysServerResponse 	: "DisplaysData",
         serverEvent_OwnersDataResponse 		: "OwnersData",
         serverEvent_AdValidation 			: "AdValidationResponse"
     };

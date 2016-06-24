@@ -56,7 +56,7 @@ homeModule.controller('displaysMapCntrl',function ($scope, serverApi){
     $scope.map.models = [];
 
     /* Handle displays data response */
-    serverApi.registerListener(serverApi.serverEvent_AllDisplaysResponse, function (data){
+    serverApi.registerListener(serverApi.serverCallBack_AllDisplaysServerResponse, function (data){
         convertDisplaysData(data);
     });
 
@@ -84,7 +84,7 @@ homeModule.controller('displaysMapCntrl',function ($scope, serverApi){
 
     /* Removes listeners from socket once scope is no longer in use */
     $scope.$on('$destroy', function (event) {
-        serverApi.clearEventsListeners(serverApi.serverEvent_AllDisplaysResponse);
+        serverApi.clearEventsListeners(serverApi.serverCallBack_AllDisplaysServerResponse);
     });
 });
 
