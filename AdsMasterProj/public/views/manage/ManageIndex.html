@@ -16,10 +16,10 @@
                     <td data-title="'End date'" > {{ad.timeFrame.endDate | date:'longDate'}}</td>
                     <td>
                         <a ng-href="#/manage/editAd/{{ad._id}}">
-                            <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></button>
                         </a>
                         <a href="#/manage/" ng-click="callDelete(ad._id)">
-                            <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
+                            <button class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button>
                         </a>
                     </td>
                 </tr>
