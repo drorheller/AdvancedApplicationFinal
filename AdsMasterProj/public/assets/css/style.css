@@ -232,7 +232,7 @@ ul.top-menu > li > .logout {
     width: 210px;
     height: 100%;
     position: fixed;
-    background: aquamarine;
+    background: aliceblue;
 }
 
 #sidebar h5 {
@@ -413,7 +413,7 @@ ul.sidebar-menu li a.active i {
 }
 
 .black-bg {
-    background: black;
+    background: #0092ce;
     border-bottom: 1px solid #c9aa5f;
 }
 

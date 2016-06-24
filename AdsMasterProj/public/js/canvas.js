@@ -6,7 +6,7 @@ var CanvasXSize = 1306;
 var CanvasYSize = 905;
 var speed = 70; //lower is faster
 var scale = 1.05;
-var y = -4.5; //vertical offset
+var y = 50; //vertical offset
 
 // Main program
 
