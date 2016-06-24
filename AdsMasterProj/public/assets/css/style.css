@@ -401,6 +401,13 @@ ul.sidebar-menu li a.active i {
     font-size: 11px;
 }
 
+/* TABLE */
+.table {
+    background: rgba(8, 97, 255, 0.20);
+}
+
+
+
 /* MAIN CONTENT CONFIGURATION */
 #main-content {
     margin-left: 210px;
@@ -837,7 +844,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 	font-size: 11px;
 }
 
-.ds p > muted {
+.ds p > .muted {
 	font-size: 9px;
 	text-transform: uppercase;
 	font-style: italic;
@@ -1173,7 +1180,7 @@ PANELS CONFIGURATIONS
 
 /*Content Panel*/
 .content-panel {
-	background: #ffffff;
+	background: rgba(255, 255, 255, 0.4);
 	box-shadow: 0px 3px 2px #aab2bd;
 	padding-top: 15px;
 	padding-bottom: 5px;
@@ -1406,7 +1413,7 @@ PANELS CONFIGURATIONS
 #profile-01 {
 	background: url(../img/profile-01.jpg) no-repeat center top;
 	margin-top: -15px;
-	background-attachment: relative;
+	background-attachment: inherit;
 	background-position: center center;
 	min-height: 150px;
 	width: 100%;
@@ -1452,9 +1459,9 @@ PANELS CONFIGURATIONS
 
 /* Profile 02*/
 #profile-02 {
-	background: url(../img/profile-02.jpg) no-repeat center top;
+	background: url(../img/profile-01.jpg) no-repeat center top;
 	margin-top: -15px;
-	background-attachment: relative;
+	background-attachment: inherit;
 	background-position: center center;
 	min-height: 200px;
 	width: 100%;
@@ -2019,7 +2026,7 @@ label {
     /* Safari and Chrome */
     .panel-footer.revenue-foot {
         margin-bottom: -4px;
-    };
+    }
     }
 
 
