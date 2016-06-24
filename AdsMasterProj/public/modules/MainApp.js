@@ -1,18 +1,11 @@
 var mainApp = angular.module('mainApp',['ngRoute','ngResource','socketModule','homeModule','displayModule','manageModule']);
 
-//**************
-//	Routes
-//*************
+// Routing configuration
 mainApp.config(function($routeProvider){
     $routeProvider
         .when('/',
             {
                 templateUrl: 'views/home/HomeIndex.html'
-            })
-        .when('/songs',
-            {
-                controller: 'songsController',
-                templateUrl: 'views/home/Songs.html'
             })
         .when('/locations',
             {
@@ -22,19 +15,6 @@ mainApp.config(function($routeProvider){
         .when('/tips',
             {
                 templateUrl: 'views/home/Tips.html'
-            })
-        .when('/stats',
-            {
-                controller : 'statsCntrl',
-                templateUrl: 'views/home/stats.html'
-            })
-        .when('/contact',
-            {
-                templateUrl: 'views/home/ContactUs.html'
-            })
-        .when('/about',
-            {
-                templateUrl: 'views/home/AboutUs.html'
             })
         .when('/displayAds',
             {
@@ -65,12 +45,17 @@ mainApp.config(function($routeProvider){
 });
 
 mainApp.controller('navbarController',function ($scope, adsService, serverApi){
+
+    // Getting all of the stations from the server
     serverApi.emit_GetAllDisplays();
+
+    // The assigning of the stations from the server call back to the ads service
     $scope.stations = adsService.allStations;
 
+    // A boolean functions that returns whether the stations have been loaded or not
     function stationsLoaded() {
-        var val = $scope.stations != '';
-        return val;
+        var stationsHaveBeenLoaded = $scope.stations != '';
+        return stationsHaveBeenLoaded;
     };
 
     $scope.stationsLoaded = stationsLoaded;
