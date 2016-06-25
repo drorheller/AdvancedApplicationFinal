@@ -1,4 +1,4 @@
-var mainApp = angular.module('mainApp',['ngRoute','ngResource','socketModule','homeModule','displayModule','manageModule']);
+var mainApp = angular.module('mainApp',['ngRoute','ngResource','socketModule','homeModule','displayModule','manageModule', 'aboutAdvModule']);
 
 // Routing configuration
 mainApp.config(function($routeProvider){
@@ -12,9 +12,10 @@ mainApp.config(function($routeProvider){
                 controller: 'displaysMapCntrl',
                 templateUrl: 'views/home/Stations.html'
             })
-        .when('/tips',
+        .when('/aboutAdvertiser',
             {
-                templateUrl: 'views/home/Tips.html'
+                controller: 'aboutAdvCntrl',
+                templateUrl: 'views/home/AboutAdvertiser.html'
             })
         .when('/displayAds',
             {
