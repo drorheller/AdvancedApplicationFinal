@@ -11,29 +11,29 @@ manageModule.controller('manageIndexCntrl',function ($scope,$filter,ngTableParam
 
     $scope.tableParams = new ngTableParams({
         page: 1,            // show first page
-        count: 10,           // count per page
+        count: 10,           // count of adds per page
         sorting: {
-            name: 'asc'     // initial sorting
+            name: 'asc'     // initial sorting is ascending
         },
         filter: {
-            name: ''      // initial filter
+            name: ''      // initial filter(is empty)
         }
 
     }, {
         total: $scope.ads.length, // length of data
         getData: function($defer, params) {
 
-            // Filter (Using anguar's default filter)
-            var orderedData = params.filter() ?
+            //Get ordered adds by filter if there is one
+            var filteredData = params.filter() ?
                 $filter('filter')($scope.ads, params.filter()) :
                 $scope.ads;
 
-            // Now , order filtered data
-            orderedData = params.sorting() ?
-                $filter('orderBy')(orderedData, params.orderBy()) :
-                orderedData;
+            // sort the filtered data
+            filteredData = params.sorting() ?
+                $filter('orderBy')(filteredData, params.orderBy()) :
+                filteredData;
 
-            $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+            $defer.resolve(filteredData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
         },
         filterDelay : 0
     });
