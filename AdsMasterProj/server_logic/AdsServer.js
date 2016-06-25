@@ -1,12 +1,11 @@
+// loading the mongo interface
 var mongoConn = require('./MongoConnector.js');
 var io;
 var ContextTypes = {
     DISPLAY 	: "display",
     MANAGEMENT 	: "management",
-    STATISTICS 	: "statistics"
 };
 var displayCtx = require('./DisplayContext');
-var restHandler = require('./RestHandler');
 
 exports = module.exports = startServer;
 
@@ -228,9 +227,6 @@ function refreshAllClientsData(contextType) {
         case ContextTypes.MANAGEMENT:
             sendManagementData(null);
             break;
-        case ContextTypes.STATISTICS:
-            sendStatisticsData(null);
-            break;
         default:
             break;
     }
@@ -243,9 +239,6 @@ function refreshClientData(client, contextType) {
             break;
         case ContextTypes.MANAGEMENT:
             sendManagementData(client);
-            break;
-        case ContextTypes.STATISTICS:
-            sendStatisticsData(client);
             break;
         default:
             break;
