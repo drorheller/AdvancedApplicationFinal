@@ -111,15 +111,13 @@ socketModule.factory('serverApi', function ($rootScope, socket) {
         //****************************
         // Defined events from server (To keep track of constants)
         //****************************
-        serverCallBack_ActiveAdsServerResponse 	: "ActiveAdsResponse",
-        serverCallBack_ActiveAdsByStationServerResponse : "ActiveAdsByStationResponse",
-        serverCallBack_AllAdsServerResponse : "AllAdsResponse",
-        serverCallBack_AddCreatedOnServer 		: "AdCreated",
-        serverCallBack_AddUpdatedOnServer 		: "AdUpdated",
-        serverCallBack_AddDeletedOnServer 		: "AdDeleted",
-        serverEvent_ItunesResponse 			: "ItunesResponse",
-        serverCallBack_AllDisplaysServerResponse 	: "DisplaysData",
-        serverEvent_OwnersDataResponse 		: "OwnersData",
-        serverEvent_AdValidation 			: "AdValidationResponse"
+        serverCallBack_ActiveAdsServerResponse 	: "ActiveAdsDataFromServer",
+        serverCallBack_ActiveAdsByStationServerResponse : "ActiveAdsByStationDataFromServer",
+        serverCallBack_AllAdsServerResponse : "AllAdsDataFromServer",
+        serverCallBack_AddCreatedOnServer 		: "AdCreatedOnServer",
+        serverCallBack_AddUpdatedOnServer 		: "AdUpdatedOnServer",
+        serverCallBack_AddDeletedOnServer 		: "AdDeletedOnServer",
+        serverCallBack_AllDisplaysServerResponse 	: "DisplaysDataFromServer",
+        serverEvent_AdValidation 			: "AdValidationResponseFromServer"
     };
 });

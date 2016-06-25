@@ -85,27 +85,27 @@ function setSocketIoListeners(client) {
 function onGetAds(client, getAll){
     if (getAll){
         mongoConn.getAllAds(function(data) {
-            console.log('Emiting AllAdsResponse to the client');
+            console.log('Emiting AllAdsDataFromServer to the client');
             
-            // The call back is emiting the AllAdsResponse to the client
-            client.emit('AllAdsResponse', {allAds : data});
+            // The call back is emiting the AllAdsDataFromServer to the client
+            client.emit('AllAdsDataFromServer', {allAds : data});
         });
     } else {
         displayCtx.getDisplayData(function(data) {
-            console.log('Emiting ActiveAdsResponse to the client');
+            console.log('Emiting ActiveAdsDataFromServer to the client');
 
-            // The call back is emiting the ActiveAdsResponse to the client
-            client.emit('ActiveAdsResponse', {activeAds : data});
+            // The call back is emiting the ActiveAdsDataFromServer to the client
+            client.emit('ActiveAdsDataFromServer', {activeAds : data});
         });
     }
 }
 
 function onGetAdsByStation(client, stationId){
     displayCtx.getDisplayDataByStation(stationId, function(data) {
-        console.log('Emiting ActiveAdsByStationResponse to the client');
+        console.log('Emiting ActiveAdsByStationDataFromServer to the client');
 
-        // The call back is emiting the ActiveAdsByStationResponse to the client
-        client.emit('ActiveAdsByStationResponse', {activeAds : data});
+        // The call back is emiting the ActiveAdsByStationDataFromServer to the client
+        client.emit('ActiveAdsByStationDataFromServer', {activeAds : data});
     });
 }
 
@@ -115,13 +115,13 @@ function onValidateAd (client, ad){
         console.log("The add is valid");
         
         // sending the validation result to the user
-        client.emit('AdValidationResponse',{valid:  true});
+        client.emit('AdValidationResponseFromServer',{valid:  true});
 
     }else {
         console.log("The add is not valid");
 
         // sending the validation result to the user
-        client.emit('AdValidationResponse',{valid:  false , alerts : _alerts});
+        client.emit('AdValidationResponseFromServer',{valid:  false , alerts : _alerts});
     }
 }
 
@@ -174,10 +174,10 @@ function validateAd(ad,alerts){
 function onCreateAd(adData) {
     mongoConn.createAd(adData, function(success) {
         if (success) {
-            console.log("Emiting AdCreated to the client");
+            console.log("Emiting AdCreatedOnServer to the client");
             
             // sending the result of the add creation to the client
-            io.sockets.emit('AdCreated');
+            io.sockets.emit('AdCreatedOnServer');
         }
         else {
             console.log("The creation of the add failed");
@@ -191,7 +191,7 @@ function onDeleteAd(client, adId) {
             console.log("The deletion of the add succedded");
             
             // sending the result of the deletion to the client
-            io.sockets.emit('AdDeleted',{id : adId});
+            io.sockets.emit('AdDeletedOnServer',{id : adId});
         }
         else {
             console.log("Could not delete the ad");
@@ -205,7 +205,7 @@ function onEditAd(adId, adData) {
             console.log("The update of the add succedded");
 
             // sending the result of the update to the client
-            io.sockets.emit('AdUpdated',{id : adId});
+            io.sockets.emit('AdUpdatedOnServer',{id : adId});
         }
         else {
             console.log("Could not update the ad");
@@ -217,7 +217,7 @@ function onLoadAllDisplays(client) {
     mongoConn.loadAllDisplays(function(data) {
 
         // sending data to the client
-        client.emit("DisplaysData", data);
+        client.emit("DisplaysDataFromServer", data);
     });
 }
 
