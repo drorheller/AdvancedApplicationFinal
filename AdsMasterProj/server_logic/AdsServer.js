@@ -6,7 +6,6 @@ var ContextTypes = {
     STATISTICS 	: "statistics"
 };
 var displayCtx = require('./DisplayContext');
-var statisticsCtx = require('./StatisticsContext');
 var restHandler = require('./RestHandler');
 
 exports = module.exports = startServer;
@@ -218,31 +217,6 @@ function onLoadAllDisplays(client) {
         console.log('Emiting DisplaysData response, Data : ');
         console.log(JSON.stringify(data));
         client.emit("DisplaysData", data);
-    });
-}
-
-
-function onGetItunesData(client, searchTerm){
-    var pHost = 'itunes.apple.com';
-    var pEndpoint = '/search';
-    var pMethod = 'GET';
-    var pData = {
-        term : searchTerm,
-    };
-
-    var pSuccess = function(result){
-        console.log('Emiting itunes response');
-        var resItems
-        client.emit("ItunesResponse",{items : result.results});
-    };
-
-    restHandler.performRestRequest(pHost,pEndpoint,
-        pMethod,pData,pSuccess);
-}
-
-function onGetOwnersData(client) {
-    statisticsCtx.getOwnersData(function(data) {
-        client.emit("OwnersData", data);
     });
 }
 
