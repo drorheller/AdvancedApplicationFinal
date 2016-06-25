@@ -1,107 +1,100 @@
+// loading the mongo interface
 var mongoConn = require('./MongoConnector.js');
 var io;
-var ContextTypes = {
-    DISPLAY 	: "display",
-    MANAGEMENT 	: "management",
-    STATISTICS 	: "statistics"
-};
 var displayCtx = require('./DisplayContext');
-var restHandler = require('./RestHandler');
-
 exports = module.exports = startServer;
 
-// Main function called by Express on startup
+// staring the server
 function startServer(server) {
     io = require('socket.io')(server);
 
+    // setting the socket io listeners after the mongo db is connected
     mongoConn.connect(function() {
-        // Connection to Mongo succeed - prepare listeners
-
         setSocketIoConnectionListener();
     });
 }
 
+// call back for the init of the server
 function setSocketIoConnectionListener() {
-    // Prepare client listeners for new connection
     io.on('connection', function (client) {
-        //***client.displayId = 0;
         setSocketIoListeners(client);
     });
 }
 
+// Registering all of the socket io events
 function setSocketIoListeners(client) {
-    /*
-     Data.getAll : True - returns all ads , False - return only the active ones.
-     */
+
     client.on('GetAds',function(data){
+        // making sure that the client sent the 'getAll' parameter
         if (typeof data.getAll === 'undefined') return;
+
         logEvent('GetActiveAds', data);
         onGetAds(client, data.getAll);
     });
 
     client.on('GetAdsByStation',function(data){
+        // making sure that the client sent the 'stationId' parameter
         if (typeof data.stationId === 'undefined') return;
+
         logEvent('GetActiveAdsByStation', data);
         onGetAdsByStation(client, data.stationId);
     });
 
     client.on('ValidateAd', function(data) {
-        console.log("Validating ad");
+        // making sure that the client sent the 'ad' parameter
         if (typeof data.ad === 'undefined') return;
+        
         logEvent('ValidateAd', data);
         onValidateAd(client, data.ad);
     });
 
     client.on('CreateAd', function(data) {
+        // making sure that the client sent the 'adData' parameter
         if (typeof data.adData === 'undefined') return;
+        
         logEvent('CreateAd', data);
         onCreateAd(data.adData);
     });
 
     client.on('DeleteAd', function(data) {
+        // making sure that the client sent the 'adId' parameter
         if (typeof data.adId === 'undefined') return;
+        
         logEvent('DeleteAd', data);
-        console.log("Ad to delete id is " + data.adId);
         onDeleteAd(client , data.adId);
     });
 
     client.on('EditAd', function(data) {
+        // making sure that the client sent the 'adId' and 'adData' parameters
         if (typeof data.adId === 'undefined') return;
         if (typeof data.adData === 'undefined') return;
+        
         logEvent('EditAd', data);
         onEditAd(data.adId, data.adData);
     });
 
     client.on('LoadAllDisplays', function(data) {
+        
         logEvent('LoadAllDisplays', data);
         onLoadAllDisplays(client);
     });
-
-    //  Itunes API
-    client.on('GetItunesData',function(data){
-        if (typeof data.term === 'undefined') return;
-        logEvent('GetItunesData', data);
-        onGetItunesData(client,data.term);
-    });
-
-    client.on('GetOwnersData', function(data) {
-        onGetOwnersData(client);
-    });
 }
 
-//**************************
-// Event handling functions
-//**************************
+
+// Local functions
 function onGetAds(client, getAll){
     if (getAll){
         mongoConn.getAllAds(function(data) {
-            console.log('Emiting AllAds response, Data : ');
-            console.log(JSON.stringify(data));
+            console.log('Emiting AllAdsResponse to the client');
+            
+            // The call back is emiting the AllAdsResponse to the client
             client.emit('AllAdsResponse', {allAds : data});
         });
     } else {
         displayCtx.getDisplayData(function(data) {
-            console.log('Emiting ActiveAds response ');
+            console.log('Emiting ActiveAdsResponse to the client');
+
+            // The call back is emiting the ActiveAdsResponse to the client
             client.emit('ActiveAdsResponse', {activeAds : data});
         });
     }
@@ -109,37 +102,41 @@ function onGetAds(client, getAll){
 
 function onGetAdsByStation(client, stationId){
     displayCtx.getDisplayDataByStation(stationId, function(data) {
-        console.log('Emiting ActiveAds by station response ');
+        console.log('Emiting ActiveAdsByStationResponse to the client');
+
+        // The call back is emiting the ActiveAdsByStationResponse to the client
         client.emit('ActiveAdsByStationResponse', {activeAds : data});
     });
 }
 
-/*
- Validates that the add is logically good.
- */
 function onValidateAd (client, ad){
     var _alerts = [];
     if (validateAd(ad, _alerts)){
-        console.log("Ad is valid");
+        console.log("The add is valid");
+        
+        // sending the validation result to the user
         client.emit('AdValidationResponse',{valid:  true});
 
     }else {
-        console.log("Ad is not valid");
+        console.log("The add is not valid");
+
+        // sending the validation result to the user
         client.emit('AdValidationResponse',{valid:  false , alerts : _alerts});
     }
 }
 
+// This method is responsible for making sure that the add is valid
+// it returns a boolean value and poplulates the alerts collection
 function validateAd(ad,alerts){
     var valid = true;
-    console.log('Ad is : ' + JSON.stringify(ad));
-    // Ensure basic data is not empty
+    
     if (ad.name ==""){
         valid = false;
-        alerts.push("Ad name cannot be empty");
+        alerts.push("Name can't be empty");
     }
     if (ad.stationId == ""){
         valid = false;
-        alerts.push("Ad must be linked to station");
+        alerts.push("Station Id can't be empty");
     }
     if (ad.owner ==""){
         valid = false;
@@ -157,8 +154,6 @@ function validateAd(ad,alerts){
         valid = false;
         alerts.push("Invested money needs to be between 100 and 5000");
     }
-
-    // Check dates
     if (ad.timeFrame.startDate ==""){
         valid = false;
         alerts.push("Start date cannot be empty");
@@ -169,21 +164,23 @@ function validateAd(ad,alerts){
     }
     if (new Date(ad.timeFrame.startDate) > new Date(ad.timeFrame.endDate)){
         valid = false;
-        alerts.push("End date cannot be after start date");
+        alerts.push("End date can't after start date");
     }
 
+    // The validation of the add
     return valid;
 }
-
 
 function onCreateAd(adData) {
     mongoConn.createAd(adData, function(success) {
         if (success) {
-            console.log("Emiting AdUpdate");
+            console.log("Emiting AdCreated to the client");
+            
+            // sending the result of the add creation to the client
             io.sockets.emit('AdCreated');
         }
         else {
-            console.log("Could not create the ad");
+            console.log("The creation of the add failed");
         }
     });
 }
@@ -191,7 +188,9 @@ function onCreateAd(adData) {
 function onDeleteAd(client, adId) {
     mongoConn.deleteAd(adId, function(success) {
         if (success) {
-            console.log("Delete went well");
+            console.log("The deletion of the add succedded");
+            
+            // sending the result of the deletion to the client
             io.sockets.emit('AdDeleted',{id : adId});
         }
         else {
@@ -203,7 +202,9 @@ function onDeleteAd(client, adId) {
 function onEditAd(adId, adData) {
     mongoConn.editAd(adId, adData, function(success) {
         if (success) {
-            console.log("Emiting AdUpdate");
+            console.log("The update of the add succedded");
+
+            // sending the result of the update to the client
             io.sockets.emit('AdUpdated',{id : adId});
         }
         else {
@@ -214,75 +215,13 @@ function onEditAd(adId, adData) {
 
 function onLoadAllDisplays(client) {
     mongoConn.loadAllDisplays(function(data) {
-        console.log('Emiting DisplaysData response, Data : ');
-        console.log(JSON.stringify(data));
+
+        // sending data to the client
         client.emit("DisplaysData", data);
     });
 }
 
-function refreshAllClientsData(contextType) {
-    switch (contextType) {
-        case ContextTypes.DISPLAY:
-            sendDisplayData(null);
-            break;
-        case ContextTypes.MANAGEMENT:
-            sendManagementData(null);
-            break;
-        case ContextTypes.STATISTICS:
-            sendStatisticsData(null);
-            break;
-        default:
-            break;
-    }
-}
-
-function refreshClientData(client, contextType) {
-    switch(contextType) {
-        case ContextTypes.DISPLAY:
-            sendDisplayData(client);
-            break;
-        case ContextTypes.MANAGEMENT:
-            sendManagementData(client);
-            break;
-        case ContextTypes.STATISTICS:
-            sendStatisticsData(client);
-            break;
-        default:
-            break;
-    }
-}
-
-// Sends all clients or specific client display context data
-function sendDisplayData(specificClient) {
-    if (specificClient === null) {
-        io.in(ContextTypes.DISPLAY).sockets.forEach(function (socket) {
-            displayCtx.getDisplayData(socket.displayId, function(data) {
-                socket.emit('AdsData', data);
-            });
-        });
-    }
-    else {
-        displayCtx.getDisplayData(specificClient.displayId, function(data) {
-            specificClient.emit('AdsData', data);
-        });
-    }
-}
-
-// Sends all clients or specific client management context data
-function sendManagementData(specificClient) {
-    mongoConn.getAllAds(function(data) {
-        if (specificClient === null) {
-            io.to(ContextTypes.MANAGEMENT).emit('ManagementData', data);
-        }
-        else {
-            specificClient.emit('ManagementData', data);
-        }
-    });
-}
-
-//*****************************
-//         Logging
-//*****************************
+// responsible for logging an event
 function logEvent(eventName, eventData){
-    console.log("Event received. Event name : " + eventName + " , Data : " + JSON.stringify(eventData));
+    console.log("Event triggered. Event name : " + eventName + " , Data : " + JSON.stringify(eventData));
 }
