@@ -1,63 +1,63 @@
 {
-	stationId: '1',
-	name: 'BK SUPER SEVEN INCHER',
-	owner: 'Burger King',
-	fields: 'food',
+	stationId: "1",
+	name: "COKE FOR A BETTER LIFE",
+	owner: "Coca Cola",
+	fields: "bavrages",
 	moneyInvested: 200,
 	texts: [
 		{
-			text: 'BURGER KING'
+			text: "Share doke with a friend"
 		},
 		{
-			text: 'ITS JUST TASTES BETTER'
+			text: "Get in touch with a good friend,"
 		},
 		{
-			text: 'ITLL BLOW BLOW YOUR MIND AWAY'
+			text: "An old friend"
 		},
 		{
-			text: 'BK SUPER SEVEN INCHER'
+			text: "Or maybe a new friend"
 		},
 		{
-			text: 'BETTER THAN MCDONALDS'
+			text: "coke.com"
 		}
 	],
 	images: [
 		{
-			url: '/images/ads/ad3.png'
+			url: "http://vignette3.wikia.nocookie.net/logopedia/images/a/a8/Coca-Cola_1950.png/revision/latest?cb=20150801073948"
 		},
 		{
-			url: '/images/ads/ad2.png'
+			url: "http://www.coca-colaproductfacts.com/content/dam/productfacts/us/productDetails/ProductImages/PDP_Coca-Cola_HFCS_glass_8oz.png"
 		}
 	],
 	timeFrame: {startDate:"2014-01-01",
-				endDate:"2014-12-31"}
+				endDate:"2022-12-31"}
 }
 {
-	stationId: '2',
-	name: 'PEPSI MAX',
-	owner: 'Pepsico',
-	fields: 'bavrages',
+	stationId: "2",
+	name: "Ranch BLT",
+	owner: "MCDONALDS",
+	fields: "fast food",
 	moneyInvested: 2000,
 	texts: [
 		{
-			text: 'PEPSI MAX'
+			text: "Ranch BLT"
 		},
 		{
-			text: 'MAXIMUM TASTE, NO SUGER'
+			text: "Tender, juicy grilled or crispy chicken breast,"
 		},
 		{
-			text: 'Any Weather is Pepsi Weather'
+			text: "Crispy bacon and creamy ranch dressing"
 		},
 		{
-			text: 'Say Pepsi, Please'
+			text: "All together in the same sandwich"
 		},
 		{
-			text: 'Drink pepsi-cola!'
+			text: "So good, it\'s almost embarrassing "
 		}
 	],
 	images: [
 		{
-			url: '/images/ads/ad1.png'
+			url: "http://vignette3.wikia.nocookie.net/logopedia/images/3/3a/Mcdonalds_commercial_screenshot.jpg/revision/latest?cb=20130831215409"
 		}
 	],
 	timeFrame:
@@ -67,74 +67,71 @@
 			}
 }
 {
-	stationId: '3',
-	name: 'AMAZON',
-	owner: 'Amazon',
-	fields: 'websites',
+	stationId: "3",
+	name: "Castro Line 2016",
+	owner: "Castro",
+	fields: "clothing",
 	moneyInvested: 300,
 	texts: [
 		{
-			text: 'Buy our books !'
+			text: "For Men and Women"
 		}],
 	images: [],
 	timeFrame:{	
 			startDate:"2014-05-01",
-			endDate:"2014-06-15"
+			endDate:"2024-06-15"
 		}
 }
 {
-	stationId: '5',
-	name: 'VODAFONE',
-	owner: 'Vodafone',
-	fields: 'phones',
+	stationId: "5",
+	name: "Pele for Subway",
+	owner: "Subway",
+	fields: "fast food",
 	moneyInvested: 250,
 	texts: [
 		{
-			text: 'VODAFONE'
+			text: "SUBWAY"
 		},
 		{
-			text: 'ONE NET EXPRESS'
+			text: "Eat fresh"
 		}
 	],
 	images: [ 
 		{ 
-			url: '/images/ads/ad4.png'
+			url: "http://theoriginalwinger.com/wp-content/uploads/2013/10/pele-subway-commercial.png"
 		} 
 	],
 	timeFrame: {	
 			startDate:"2014-03-29",
-			endDate:"2014-04-15"
+			endDate:"2017-04-15"
 		}
 }
 {
-	stationId: '3',
-	name: 'Nokia',
-	owner: 'Nokia',
-	fields:'phones',
+	stationId: "3",
+	name: "Lenovo Yoga Tablet",
+	owner: "Lenovo",
+	fields:"computers",
 	moneyInvested: 450,
 	texts: [
 		{
-			text: 'NOKIA'
+			text: "Lonovo Yoga Tablet"
 		},
 		{
-			text: 'Connecting people'
+			text: "A computer"
 		},
 		{
-			text: 'MICROSOFT'
+			text: "and a tablet"
 		},
 		{
-			text: 'NOKIA LUMIA'
-		},
-		{
-			text: 'LOL JUST LUMIA'
+			text: "for the best experiance"
 		}
 	],
 	images: [
 		{
-			url: 'http://i.webapps.microsoft.com/r/image/view/-/4030040/extraHighRes/1/-/Nokia-Lumia-620-2-jpg.jpg'
+			url: "https://i.ytimg.com/vi/A7CnkvYIi78/maxresdefault.jpg"
 		},
 		{
-			url: 'http://i.telegraph.co.uk/multimedia/archive/01712/nokia-3310-old-gol_1712908b.jpg'
+			url: "https://i.ytimg.com/vi/IPRsDt8KozY/maxresdefault.jpg"
 		}
 	],
 	timeFrame:{	
@@ -143,34 +140,31 @@
 		}
 }
 {
-	stationId: '1',
-	name: 'Mirinda',
-	owner: 'Pepsico',
-	fields:'bavrages',
+	stationId: "1",
+	name: "Fox",
+	owner: "Fox",
+	fields:"clothes",
 	moneyInvested: 550,
 	texts: [
 		{
-			text: 'Yummi'
+			text: "FOX"
 		},
 		{
-			text: 'Orange and good'
+			text: "Basically,"
 		},
 		{
-			text: 'Better than fanta'
+			text: "we are all the same"
 		},
 		{
-			text: '0% vitamin C'
-		},
-		{
-			text: '100% vitamin M'
+			text: "Basic is beautiful"
 		}
 	],
 	images: [
 		{
-			url: 'http://company.unipack.ru/light_editor_img/images/2013-5-29/file1369815379.jpg'
+			url: "http://mizbala.com/_uploads/images/2015/03/fox_2015-_a-2.jpg"
 		},
 		{
-			url: 'http://cuticonedesign.com/wp-content/uploads/2012/04/06_Pepsi_mirinda.jpg'
+			url: "http://mizbala.com/_uploads/images/2015/03/fox_2015-_a.jpg"
 		}
 	],
 	timeFrame:{	
@@ -179,32 +173,29 @@
 		}
 }
 {
-	stationId: '7',
-	name: 'iPhone 6',
-	owner: 'Apple',
-	fields:'phones',
+	stationId: "7",
+	name: "Samsung Galaxy S3",
+	owner: "Samsung",
+	fields:"phones",
 	moneyInvested: 750,
 	texts: [
 				{
-			text: 'Now only 300$ more than it should'
+			text: "The new samsung s3"
 		},
 		{
-			text: 'Pay to feel rich'
+			text: "The best one yet"
 		},
 		{
-			text: 'We copy android'
-		},
-		{
-			text: 'Want a bite from the apple ? '
+			text: "Better than iPhone"
 		}
 
 	],
 	images: [
 		{
-			url: 'http://pngimg.com/upload/iphone_PNG5740.png'
+			url: "https://i.ytimg.com/vi/9vgcTdKvEcE/maxresdefault.jpg"
 		},
 		{
-			url: '/images/ads/ad1.png'
+			url: "https://i.ytimg.com/vi/oxiR5aczVu8/maxresdefault.jpg"
 		}
 	],
 	timeFrame:{	
