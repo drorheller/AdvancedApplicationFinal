@@ -1,4 +1,4 @@
-<h3><i class="fa fa-angle-right"></i> Manage Your Ads</h3>
+<h3>Manage Your Ads</h3>
 <div class="row">
     <div class="col-md-12">
         <div class="content-panel">
@@ -9,11 +9,11 @@
                 <tr data-ng-repeat="ad in $data">
                     <td data-title="'name'" sortable="'name'" filter="{ 'name': 'text' }">{{ad.name}}</td>
                     <td data-title="'Station'" sortable="'stationId'" filter="{ 'stationId': 'text' }">{{ad.stationId}}</td>
-                    <td data-title="'owner'" sortable="'owner'" filter="{ 'owner': 'text' }"> {{ad.owner}}</td>
+                    <td data-title="'Advertiser'" sortable="'owner'" filter="{ 'owner': 'text' }"> {{ad.owner}}</td>
                     <td data-title="'Field'" sortable="'fields'" filter="{ 'fields': 'text' }">{{ad.fields}}</td>
-                    <td data-title="'Budget'" sortable="'moneyInvested'">{{ad.moneyInvested}}</td>
                     <td data-title="'Start date'" >{{ad.timeFrame.startDate | date:'longDate'}}</td>
                     <td data-title="'End date'" > {{ad.timeFrame.endDate | date:'longDate'}}</td>
+                    <td data-title="'CPM'" sortable="'moneyInvested'">{{ad.moneyInvested}}</td>
                     <td>
                         <a ng-href="#/manage/editAd/{{ad._id}}">
                             <button class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></button>

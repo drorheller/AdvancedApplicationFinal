@@ -14,6 +14,6 @@ timeout 5
 start cmd /k node AdsMasterProj\bin\www
 
 timeout 5
-start chrome --incognito "http://localhost:8080/"
+start chrome "http://localhost:8080/"
 
 @pause
