@@ -6,7 +6,6 @@ var ContextTypes = {
     STATISTICS 	: "statistics"
 };
 var displayCtx = require('./DisplayContext');
-var managementCtx = require('./ManagementContext');
 var statisticsCtx = require('./StatisticsContext');
 var restHandler = require('./RestHandler');
 
@@ -96,7 +95,7 @@ function setSocketIoListeners(client) {
 //**************************
 function onGetAds(client, getAll){
     if (getAll){
-        managementCtx.getManagementData(function(data) {
+        mongoConn.getAllAds(function(data) {
             console.log('Emiting AllAds response, Data : ');
             console.log(JSON.stringify(data));
             client.emit('AllAdsResponse', {allAds : data});
@@ -121,7 +120,7 @@ function onGetAdsByStation(client, stationId){
  */
 function onValidateAd (client, ad){
     var _alerts = [];
-    if (managementCtx.validateAd(ad, _alerts)){
+    if (validateAd(ad, _alerts)){
         console.log("Ad is valid");
         client.emit('AdValidationResponse',{valid:  true});
 
@@ -131,8 +130,55 @@ function onValidateAd (client, ad){
     }
 }
 
+function validateAd(ad,alerts){
+    var valid = true;
+    console.log('Ad is : ' + JSON.stringify(ad));
+    // Ensure basic data is not empty
+    if (ad.name ==""){
+        valid = false;
+        alerts.push("Ad name cannot be empty");
+    }
+    if (ad.stationId == ""){
+        valid = false;
+        alerts.push("Ad must be linked to station");
+    }
+    if (ad.owner ==""){
+        valid = false;
+        alerts.push("Owner name cannot be empty");
+    }
+    if (ad.fields ==""){
+        valid = false;
+        alerts.push("Ad field cannot be empty");
+    }
+    if (ad.moneyInvested ==""){
+        valid = false;
+        alerts.push("Invested money cannot be empty");
+    }
+    if ((ad.moneyInvested < 100) || (ad.moneyInvested > 5000)){
+        valid = false;
+        alerts.push("Invested money needs to be between 100 and 5000");
+    }
+
+    // Check dates
+    if (ad.timeFrame.startDate ==""){
+        valid = false;
+        alerts.push("Start date cannot be empty");
+    }
+    if (ad.timeFrame.endDate ==""){
+        valid = false;
+        alerts.push("End date cannot be empty");
+    }
+    if (new Date(ad.timeFrame.startDate) > new Date(ad.timeFrame.endDate)){
+        valid = false;
+        alerts.push("End date cannot be after start date");
+    }
+
+    return valid;
+}
+
+
 function onCreateAd(adData) {
-    managementCtx.createAd(adData, function(success) {
+    mongoConn.createAd(adData, function(success) {
         if (success) {
             console.log("Emiting AdUpdate");
             io.sockets.emit('AdCreated');
@@ -144,7 +190,7 @@ function onCreateAd(adData) {
 }
 
 function onDeleteAd(client, adId) {
-    managementCtx.deleteAd(adId, function(success) {
+    mongoConn.deleteAd(adId, function(success) {
         if (success) {
             console.log("Delete went well");
             io.sockets.emit('AdDeleted',{id : adId});
@@ -156,7 +202,7 @@ function onDeleteAd(client, adId) {
 }
 
 function onEditAd(adId, adData) {
-    managementCtx.editAd(adId, adData, function(success) {
+    mongoConn.editAd(adId, adData, function(success) {
         if (success) {
             console.log("Emiting AdUpdate");
             io.sockets.emit('AdUpdated',{id : adId});
@@ -168,7 +214,7 @@ function onEditAd(adId, adData) {
 }
 
 function onLoadAllDisplays(client) {
-    managementCtx.loadAllDisplays(function(data) {
+    mongoConn.loadAllDisplays(function(data) {
         console.log('Emiting DisplaysData response, Data : ');
         console.log(JSON.stringify(data));
         client.emit("DisplaysData", data);
@@ -250,7 +296,7 @@ function sendDisplayData(specificClient) {
 
 // Sends all clients or specific client management context data
 function sendManagementData(specificClient) {
-    managementCtx.getManagementData(function(data) {
+    mongoConn.getAllAds(function(data) {
         if (specificClient === null) {
             io.to(ContextTypes.MANAGEMENT).emit('ManagementData', data);
         }
