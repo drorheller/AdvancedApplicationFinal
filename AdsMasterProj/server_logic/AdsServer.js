@@ -200,7 +200,7 @@ function onDeleteAd(client, adId) {
 }
 
 function onEditAd(adId, adData) {
-    mongoConn.editAd(adId, adData, function(success) {
+    mongoConn.updateAd(adId, adData, function(success) {
         if (success) {
             console.log("The update of the add succedded");
 

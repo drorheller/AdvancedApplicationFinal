@@ -2,8 +2,11 @@ cd %~dp0
 
 @echo *** Start mongo db server ***
 start cmd /k mongoDb\mongod.exe --dbpath mongoDb\mongoData
-mongoDb\mongoimport.exe -d adsServer -c ads --drop --file ads.json
+timeout 5
 mongoDb\mongoimport.exe -d adsServer -c displays --drop --file stations.json
+mongoDb\mongoimport.exe -d adsServer -c displays --drop --file stations.json
+mongoDb\mongoimport.exe -d adsServer -c ads --drop --file ads.json
+
 
 timeout 5
 

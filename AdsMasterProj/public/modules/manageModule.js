@@ -54,7 +54,7 @@ manageModule.controller('EditAd',function($scope,$routeParams,$location,serverAp
     $scope.alerts = [];
 
     serverApi.registerListener(serverApi.serverEvent_AdValidation, function (data){
-        console.log("Caugth event");
+        console.log("Caugth update event");
         if (data.valid){
             serverApi.emit_AdUpdate($scope.ad._id,getCleanAd($scope.ad));
             $location.path('/manage');
