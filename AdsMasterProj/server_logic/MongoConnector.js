@@ -57,7 +57,6 @@ exports.getAdsByStationId = function(stationId, dataCallback) {
 
 // creat new add
 exports.createAd = function(adData, endCallback) {
-    console.log("start creating new ad , id: " + adId);
     getAdsCollection().insert(adData, function(err, result) {
         console.log("result is : " + JSON.stringify(result));
         if (err) throw err;
