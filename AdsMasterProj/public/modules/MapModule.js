@@ -1,6 +1,6 @@
-var homeModule = angular.module('homeModule',['ngTable','uiGmapgoogle-maps','socketModule']);
+var mapModule = angular.module('mapModule',['ngTable','uiGmapgoogle-maps','serverCommunicationModule']);
 
-homeModule.controller('displaysMapCntrl',function ($scope, serverApi){
+mapModule.controller('MapController',function ($scope, serverApi){
     $scope.map = { center: { latitude: 31.973243, longitude: 34.798661 }, zoom: 7 };
     $scope.map.models = [];
 

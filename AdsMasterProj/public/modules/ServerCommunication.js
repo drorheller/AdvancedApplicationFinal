@@ -1,7 +1,7 @@
-var socketModule = angular.module('socketModule', []);
+var serverCommunicationModule = angular.module('serverCommunicationModule', []);
 
 // Configuring the Socket.io initial settings
-socketModule.factory('socket', function ($rootScope) {
+serverCommunicationModule.factory('socket', function ($rootScope) {
 
     //  Connecting to the address of the server
     var serverSocket = io.connect('http://localhost:8080');
@@ -34,7 +34,7 @@ socketModule.factory('socket', function ($rootScope) {
 });
 
 // This factory is the interface with the server implemented wia Socket.io
-socketModule.factory('serverApi', function ($rootScope, socket) {
+serverCommunicationModule.factory('serverApi', function ($rootScope, socket) {
     return {
         // helper functions
         registerListener : function(eventName, callBack){
