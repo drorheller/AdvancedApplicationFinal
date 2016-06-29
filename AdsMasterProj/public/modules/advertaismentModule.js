@@ -1,8 +1,8 @@
-var adsModule = angular.module('adsModule',['socketModule']);
+var advertaismentModule = angular.module('advertaismentModule',['socketModule']);
 
 // The ads service is responsible for all the communication with the server
 // in regard of the ads. create, read, update, delete
-adsModule.service('adsService',function(serverApi){
+advertaismentModule.service('adsService',function(serverApi){
 
     // Init the service properties
     this.activeAds = [];

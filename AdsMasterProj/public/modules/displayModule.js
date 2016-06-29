@@ -1,4 +1,4 @@
-var displayModule = angular.module('displayModule',['adsModule']);
+var displayModule = angular.module('displayModule',['advertaismentModule']);
 
 displayModule.controller('displayAdsCntrl',function($scope,$timeout,adsService){
     // initialize default add to show at begining

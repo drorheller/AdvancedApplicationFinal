@@ -1,4 +1,4 @@
-var mainApp = angular.module('mainApp',['ngRoute','ngResource','socketModule','homeModule','displayModule','manageModule', 'aboutAdvModule']);
+var mainApp = angular.module('mainApp',['ngRoute','ngResource','socketModule','homeModule','displayModule','manageModule']);
 
 // Routing configuration
 mainApp.config(function($routeProvider){
@@ -25,22 +25,22 @@ mainApp.config(function($routeProvider){
         .when('/displayAds/:stationId',
             {
                 controller : 'displayAdsByStationCntrl',
-                templateUrl: 'views/display/DispAdsByStation.html'
+                templateUrl: 'views/display/AdsByStation.html'
             })
-        .when('/manage',
+        .when('/crud',
             {
                 controller : 'manageIndexCntrl',
-                templateUrl: 'views/manage/ManageIndex.html'
+                templateUrl: 'views/crud/Table.html'
             })
-        .when('/manage/createAd',
+        .when('/crud/createAd',
             {
                 controller : 'createAd',
-                templateUrl: 'views/manage/CreateAd.html'
+                templateUrl: 'views/crud/CreateAd.html'
             })
-        .when('/manage/editAd/:adId',
+        .when('/crud/editAd/:adId',
             {
                 controller : 'EditAd',
-                templateUrl: 'views/manage/EditAd.html'
+                templateUrl: 'views/crud/EditAd.html'
             })
         .otherwise({ redirectTo: '/'});
 });

@@ -1,4 +1,4 @@
-var manageModule = angular.module('manageModule',['ngRoute','ngTable','ui.bootstrap','socketModule','adsModule']);
+var manageModule = angular.module('manageModule',['ngRoute','ngTable','ui.bootstrap','socketModule','advertaismentModule']);
 
 manageModule.controller('manageIndexCntrl',function ($scope,$filter,ngTableParams, serverApi, adsService){
     $scope.tempa = adsService;
@@ -58,7 +58,7 @@ manageModule.controller('EditAd',function($scope,$routeParams,$location,serverAp
         console.log("update event was raised");
         if (data.valid){
             serverApi.emit_AdUpdate($scope.ad._id,$scope.ad);
-            $location.path('/manage');
+            $location.path('/crud');
         }
     });
 
@@ -95,7 +95,7 @@ manageModule.controller('createAd',function($scope,$location,serverApi, adsServi
         console.log("Create event was raised");
         if (data.valid){
             serverApi.emit_AdCreate($scope.ad);
-            $location.path('/manage');
+            $location.path('/crud');
         }
 
     });

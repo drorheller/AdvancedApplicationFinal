@@ -15,17 +15,17 @@
                     <td data-title="'End date'" > {{ad.timeFrame.endDate | date:'longDate'}}</td>
                     <td data-title="'CPM'" sortable="'moneyInvested'">{{ad.moneyInvested}}</td>
                     <td>
-                        <a ng-href="#/manage/editAd/{{ad._id}}">
+                        <a ng-href="#/crud/editAd/{{ad._id}}">
                             <button class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></button>
                         </a>
-                        <a href="#/manage/" ng-click="callDelete(ad._id)">
+                        <a href="#/crud/" ng-click="callDelete(ad._id)">
                             <button class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button>
                         </a>
                     </td>
                 </tr>
             </table>
             <div style="margin: 1%">
-                <a ng-href="#/manage/createAd">
+                <a ng-href="#/crud/createAd">
                     <button class="btn btn-primary" style="border: double; border-radius: 10px;">Create New Ad</button>
                 </a>
             </div>
