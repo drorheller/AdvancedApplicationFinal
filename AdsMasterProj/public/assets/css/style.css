@@ -2202,3 +2202,8 @@ li.asideList > a.active {
     background-color: transparent !important;
     color: #869ee6 !important;
 }
+
+@font-face {
+    font-family: fontFaceAdv;
+    src: url(../font-awesome/fonts/fontawesome-webfont.woff)
+}
