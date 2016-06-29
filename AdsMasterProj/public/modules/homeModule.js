@@ -1,15 +1,15 @@
 var homeModule = angular.module('homeModule',['ngTable','uiGmapgoogle-maps','socketModule']);
 
 homeModule.controller('displaysMapCntrl',function ($scope, serverApi){
-    $scope.map = { center: { latitude: 32.069894, longitude: 34.778652 }, zoom: 8 };
+    $scope.map = { center: { latitude: 31.973243, longitude: 34.798661 }, zoom: 7 };
     $scope.map.models = [];
 
-    /* Handle displays data response */
+    // get data frm server and sent to convertion to map formt
     serverApi.registerListener(serverApi.serverCallBack_AllDisplaysServerResponse, function (data){
         convertDisplaysData(data);
     });
 
-    /* Converts the displays data from the serve's format to the maps format */
+   //convert to map format
     function convertDisplaysData(displays){
         var models = [];
 
@@ -28,10 +28,10 @@ homeModule.controller('displaysMapCntrl',function ($scope, serverApi){
         });
     }
 
-    // Send a request for the displays data
+   // get all displays in order to render the map
     serverApi.emit_GetAllDisplays();
 
-    /* Removes listeners from socket once scope is no longer in use */
+    // dispose listeners
     $scope.$on('$destroy', function (event) {
         serverApi.clearEventsListeners(serverApi.serverCallBack_AllDisplaysServerResponse);
     });

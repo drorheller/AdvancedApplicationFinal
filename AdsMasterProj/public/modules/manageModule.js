@@ -99,11 +99,7 @@ manageModule.controller('createAd',function($scope,$location,serverApi, adsServi
         }
 
     });
-
-    // $scope.closeAlert = function(index) {
-    //     $scope.alerts.splice(index, 1);
-    // };
-
+    
    //validate before create
     function doCreate(){
 
