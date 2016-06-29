@@ -1,7 +1,7 @@
 // loading the mongo interface
-var mongoConn = require('./MongoConnector.js');
+var mongoHandler = require('./MongoHandler.js');
 var io;
-var displayCtx = require('./DisplayContext');
+var displayHandler = require('./DisplayHandler');
 exports = module.exports = startServer;
 
 // staring the server
@@ -9,7 +9,7 @@ function startServer(server) {
     io = require('socket.io')(server);
 
     // setting the socket io listeners after the mongo db is connected
-    mongoConn.connect(function() {
+    mongoHandler.connect(function() {
         setSocketIoConnectionListener();
     });
 }
@@ -73,9 +73,9 @@ function setSocketIoListeners(client) {
         onEditAd(data.adId, data.adData);
     });
 
-    client.on('LoadAllDisplays', function(data) {
+    client.on('GetAllStations', function(data) {
         
-        logEvent('LoadAllDisplays', data);
+        logEvent('GetAllStations', data);
         onLoadAllDisplays(client);
     });
 }
@@ -84,14 +84,14 @@ function setSocketIoListeners(client) {
 // Local functions
 function onGetAds(client, getAll){
     if (getAll){
-        mongoConn.getAllAds(function(data) {
+        mongoHandler.getAllAds(function(data) {
             console.log('Emiting AllAdsDataFromServer to the client');
             
             // The call back is emiting the AllAdsDataFromServer to the client
             client.emit('AllAdsDataFromServer', {allAds : data});
         });
     } else {
-        displayCtx.getDisplayData(function(data) {
+        displayHandler.getDisplayData(function(data) {
             console.log('Emiting ActiveAdsDataFromServer to the client');
 
             // The call back is emiting the ActiveAdsDataFromServer to the client
@@ -101,7 +101,7 @@ function onGetAds(client, getAll){
 }
 
 function onGetAdsByStation(client, stationId){
-    displayCtx.getDisplayDataByStation(stationId, function(data) {
+    displayHandler.getDisplayDataByStation(stationId, function(data) {
         console.log('Emiting ActiveAdsByStationDataFromServer to the client');
 
         // The call back is emiting the ActiveAdsByStationDataFromServer to the client
@@ -172,7 +172,7 @@ function validateAd(ad,alerts){
 }
 
 function onCreateAd(adData) {
-    mongoConn.createAd(adData, function(success) {
+    mongoHandler.createAd(adData, function(success) {
         if (success) {
             console.log("Emiting AdCreatedOnServer to the client");
             
@@ -186,7 +186,7 @@ function onCreateAd(adData) {
 }
 
 function onDeleteAd(client, adId) {
-    mongoConn.deleteAd(adId, function(success) {
+    mongoHandler.deleteAd(adId, function(success) {
         if (success) {
             console.log("The deletion of the add succedded");
             
@@ -200,7 +200,7 @@ function onDeleteAd(client, adId) {
 }
 
 function onEditAd(adId, adData) {
-    mongoConn.updateAd(adId, adData, function(success) {
+    mongoHandler.updateAd(adId, adData, function(success) {
         if (success) {
             console.log("The update of the add succedded");
 
@@ -214,7 +214,7 @@ function onEditAd(adId, adData) {
 }
 
 function onLoadAllDisplays(client) {
-    mongoConn.loadAllDisplays(function(data) {
+    mongoHandler.loadAllDisplays(function(data) {
 
         // sending data to the client
         client.emit("DisplaysDataFromServer", data);

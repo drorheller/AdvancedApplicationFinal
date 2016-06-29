@@ -70,7 +70,7 @@ serverCommunicationModule.factory('serverApi', function ($rootScope, socket) {
 
         // Get all of the stations
         emit_GetAllDisplays : function () {
-            socket.emit('LoadAllDisplays');
+            socket.emit('GetAllStations');
 
             console.log("Triggered the LoadAllDisplays");
         },
@@ -108,9 +108,7 @@ serverCommunicationModule.factory('serverApi', function ($rootScope, socket) {
             console.log("Triggered the ValidateAd");
         },
 
-        //****************************
-        // Defined events from server (To keep track of constants)
-        //****************************
+       //event from server
         serverCallBack_ActiveAdsServerResponse 	: "ActiveAdsDataFromServer",
         serverCallBack_ActiveAdsByStationServerResponse : "ActiveAdsByStationDataFromServer",
         serverCallBack_AllAdsServerResponse : "AllAdsDataFromServer",

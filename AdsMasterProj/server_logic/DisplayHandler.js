@@ -1,10 +1,10 @@
-var mongoConn = require('./MongoConnector.js');
+var mongoHandler = require('./MongoHandler.js');
 
 exports.getDisplayData = function(dataCallback) {
     var relevantDisplayAds = [];
 
     // Gets all ads match time frames
-    mongoConn.getAllAds(function(displayAds) {
+    mongoHandler.getAllAds(function(displayAds) {
         displayAds.forEach(function(ad) {
             if (isTimeFramesMatchCurrentTime(ad.timeFrame)) {
                 relevantDisplayAds.push(ad);
@@ -19,7 +19,7 @@ exports.getDisplayDataByStation = function(stationId, dataCallback) {
     var relevantDisplayAds = [];
 
     // Gets all ads by station id that match time frames
-    mongoConn.getAdsByStationId(stationId, function(displayAds) {
+    mongoHandler.getAdsByStationId(stationId, function(displayAds) {
         displayAds.forEach(function(ad) {
             if (isTimeFramesMatchCurrentTime(ad.timeFrame)) {
                 relevantDisplayAds.push(ad);
