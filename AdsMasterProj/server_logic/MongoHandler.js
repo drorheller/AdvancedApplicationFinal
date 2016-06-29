@@ -68,9 +68,12 @@ exports.createAd = function(adData, endCallback) {
 //update specific add
 exports.updateAd = function(adId, adData, endCallback) {
     console.log("start updating ad , id: " + adId);
+    console.log("start updating ad , data: " + adData);
+    delete adData._id;
+
     getAdsCollection().update({ _id : new mongoModule.ObjectID(adId)}, { $set: adData }, function(err, result) {
         console.log("result is : " + JSON.stringify(result));
-        if (err) throw err;
+        if (err) console.log( err );
         var success = (result == 1);
         endCallback(success);
     });

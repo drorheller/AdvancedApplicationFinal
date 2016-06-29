@@ -71,6 +71,7 @@ manageModule.controller('EditAd',function($scope,$routeParams,$location,serverAp
 
         console.log("do edit");
         if (validateAd($scope)){
+            delete $scope.ad.$$hashKey;
             serverApi.emit_validateAd($scope.ad);
         }
     }
