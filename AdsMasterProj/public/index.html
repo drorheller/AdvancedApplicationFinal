@@ -132,32 +132,6 @@
 <!--script for this page-->
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script src="js/canvas.js"></script>
-<script src="assets/js/chart-master/Chart.js"></script>
-
-<script>
-    var showBudgetChart = function(){
-        var pie_data = document.getElementById("myHiddenBudgetPie").getAttribute("value");
-        pie_data[0] = '{';
-        pie_data[pie_data.length - 1] = '}';
-        var myArr = $.parseJSON(pie_data);
-        new Chart(document.getElementById("budgetPie").getContext("2d")).Pie(myArr);
-    }
-
-    var showAdsChart = function(){
-        var pie_data = document.getElementById("myHiddenAdsPie").getAttribute("value");
-        pie_data[0] = '{';
-        pie_data[pie_data.length - 1] = '}';
-        var myArr = $.parseJSON(pie_data);
-        new Chart(document.getElementById("adsPie").getContext("2d")).Pie(myArr);
-    }
-
-    var showCharts = function() {
-        showBudgetChart();
-        showAdsChart();
-
-        $(".charts-content").toggle();
-    }
-</script>
 
 <script src="modules/ServerCommunication.js"></script>
 <script src="modules/advertaismentModule.js"></script>
