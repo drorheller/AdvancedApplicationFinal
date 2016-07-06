@@ -54,6 +54,22 @@ exports.getAdsByStationId = function(stationId, dataCallback) {
     });
 };
 
+exports.getAdCountForStationId = function(stationId, dataCallback) {
+    getAdsCollection().group(
+        {stationId: 1},                               // GroupBy Key
+        {stationId: stationId},                                         // Condition
+        {ads: 0},            // Initial value
+        function (curr, result) {                  // Reduce function
+            result.ads++;
+        },
+        function (err, results) {                    // End callback
+            if (err) throw err;
+            console.log(results);
+            dataCallback(results);
+        }
+    );
+};
+
 
 // creat new add
 exports.createAd = function(adData, endCallback) {
@@ -90,21 +106,3 @@ exports.deleteAd = function(adId, endCallback) {
         endCallback(success);
     });
 };
-
-
-// exports.getOwnersData = function(dataCallback) {
-//     getAdsCollection().group(
-//         { owner: 1 },                               // GroupBy Key
-//         {},                                         // Condition
-//         { moneyInvested : 0, count: 0 },            // Initial value
-//         function( curr, result ) {                  // Reduce function
-//             result.moneyInvested += parseInt(curr.moneyInvested);
-//             result.count++;
-//         },
-//         function(err, results) {                    // End callback
-//             if (err) throw err;
-//             console.log(results);
-//             dataCallback(results);
-//         }
-//     );
-// };

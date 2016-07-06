@@ -56,7 +56,7 @@ displayModule.controller('displayAdsCntrl',function($scope,$timeout,adsService){
 
 });
 
-displayModule.controller('displayAdsByStationCntrl',function($scope,$timeout,$routeParams,adsService){
+displayModule.controller('displayAdsByStationCntrl',function($scope,$timeout,$routeParams,adsService, serverApi){
     // initialize default add to show at begining
     var curId = 0;
     var timer;
@@ -87,11 +87,17 @@ displayModule.controller('displayAdsByStationCntrl',function($scope,$timeout,$ro
         $scope.selectedText = "Station " + $scope.stationId;
     }
 
+    serverApi.registerListener(serverApi.serverCallBack_AdCountByStation, function (data){
+        $scope.numberOfAds = data.activeAds[0].ads;
+    });
+
     $scope.hideAdFunc = function() {
         adsService.activeAds = [];
     };
 
     function getCurrentAdToDisplay(){
+        serverApi.emit_GetAdsNumberByStation($scope.stationId);
+
         if (adsService.activeAds.length == 0){
             $scope.ad = emptyAd;
            // $scope.showAd = true;
@@ -109,6 +115,7 @@ displayModule.controller('displayAdsByStationCntrl',function($scope,$timeout,$ro
         //set timer on add(how much time it will be displayed)
         timer = $timeout(getCurrentAdToDisplay , calculateAddDisplayTimeByMoney($scope.ad.moneyInvested));
     }
+
 
 
 

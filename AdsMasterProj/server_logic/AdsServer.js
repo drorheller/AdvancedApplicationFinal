@@ -78,6 +78,12 @@ function setSocketIoListeners(client) {
         logEvent('GetAllStations', data);
         onLoadAllDisplays(client);
     });
+    
+    client.on('GetAdCountByStation', function(data) {
+
+        logEvent('GetAllStations', data);
+        onGetAdCountByStation(client, data.stationId);
+    });
 }
 
 
@@ -106,6 +112,15 @@ function onGetAdsByStation(client, stationId){
 
         // The call back is emiting the ActiveAdsByStationDataFromServer to the client
         client.emit('ActiveAdsByStationDataFromServer', {activeAds : data});
+    });
+}
+
+function onGetAdCountByStation(client, stationId){
+    mongoHandler.getAdCountForStationId(stationId, function(data) {
+        console.log('Emiting AdCountByStation to the client');
+
+        // The call back is emiting the ActiveAdsByStationDataFromServer to the client
+        client.emit('AdCountByStation', {activeAds : data});
     });
 }
 

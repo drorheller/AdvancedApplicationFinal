@@ -25,6 +25,14 @@ advertaismentModule.service('adsService',function(serverApi){
     }.bind(this));
 
 
+
+    // The call back from the server for the number of active ads for a specific station
+    serverApi.registerListener(serverApi.serverCallBack_AdCountByStation, function (data) {
+        this.adCount = data[0].ads;
+        console.log("The server returned the adds to display for a specific station");
+    }.bind(this));
+
+
     // The call back for getting all the ads from the server
     serverApi.registerListener(serverApi.serverCallBack_AllAdsServerResponse, function (data) {
         this.allAds = data.allAds;

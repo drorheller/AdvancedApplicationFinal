@@ -100,6 +100,10 @@ serverCommunicationModule.factory('serverApi', function ($rootScope, socket) {
             console.log("Triggered the DeleteAd");
         },
 
+        emit_GetAdsNumberByStation : function (stationId) {
+            socket.emit('GetAdCountByStation',{stationId : stationId.toString()});
+        },
+        
         // Validate ad
         // ad - the add to validate
         emit_validateAd : function(_ad){
@@ -116,6 +120,7 @@ serverCommunicationModule.factory('serverApi', function ($rootScope, socket) {
         serverCallBack_AddUpdatedOnServer 		: "AdUpdatedOnServer",
         serverCallBack_AddDeletedOnServer 		: "AdDeletedOnServer",
         serverCallBack_AllDisplaysServerResponse 	: "DisplaysDataFromServer",
-        serverEvent_AdValidation 			: "AdValidationResponseFromServer"
+        serverEvent_AdValidation 			: "AdValidationResponseFromServer",
+        serverCallBack_AdCountByStation 			: "AdCountByStation"
     };
 });
